@@ -29,10 +29,11 @@ exports.home = function(req, res) {
 			  res.status(404).json({response:err});
 		  }
 		  else {
-			db.collection(CASES_COLLECTION).aggregate({$group : {_id:"zipcode", count : {$sum : 1}}}).toArray(function(err,zipDoc) {
+			db.collection(CASES_COLLECTION).aggregate([{"$match":{"likelihood":{"$gt":0}}},{$group : {_id:"$zipcode", count : {$sum : 1}}}]).toArray(function(err,zipDoc) {
 		  		if (err) {
 			  		res.status(404).json({response:err});
 		  		} else {
+					console.log(zipDoc);
 					res.render(path + "home.html",{count:count,zipDoc:zipDoc});
 								}
 				});
