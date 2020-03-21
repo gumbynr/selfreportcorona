@@ -33,7 +33,6 @@ exports.home = function(req, res) {
 		  		if (err) {
 			  		res.status(404).json({response:err});
 		  		} else {
-					console.log(zipDoc);
 					res.render(path + "home.html",{count:count,zipDoc:zipDoc});
 								}
 				});

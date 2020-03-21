@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="statistics about the coronavirus">
     <meta name="author" content="Brick and Spire">
-    <link rel="icon" href="https://s3-us-west-2.amazonaws.com/parcel-public-images/parcelIcon24x24.png">
+    <link rel="icon" href="https://buildbiller-static-files.s3.us-west-2.amazonaws.com/images/magnifying_glass_image.png">
 
     <title>Coronairus Self Reported Statistics</title>
 
@@ -57,6 +57,13 @@ h1 {
   font-weight:500;
 }
 
+h3 {
+  font-size: 16pt;
+  font-color:#333333;
+  font-family: 'Montserrat', sans-serif;
+  font-weight:500;
+}
+
 form {
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
@@ -90,12 +97,15 @@ form {
  
  <div class="col-md-6">
     <br> <br>
-    <center><h1 class="mt-5">Self Report Your Coronavirus Case</h1> </center> 
-    <br>
-    <center> <h4>Find statistics about the Coronavirus disease (COVID-19)</h4></center> 
-<br><hr>
+<center><h1 class="mt-5">CDC Recommendations:</h1> </center> 
+<center><h3 class="mt-5">1. Stay Home If You're Sick</h3> </center> 
+<center><h3 class="mt-5">2. Cover Coughs and Sneezes</h3> </center> 
+<center><h3 class="mt-5">2. Wear a facemask if you are sick</h3> </center> 
+<center><h3 class="mt-5">3. Clean and disinfect</h3> </center> <br>
+<center><a href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html" target="_blank">CDC Website: How to Protect Yourself</a></center>
  
 	<br>
+<hr>
 <center><h3> There have been <%= count %> cases self-reported as of today</h3></center>
 
 <center><h4>There are <%=zipcount%> reported cases for zip code <%=zipcode%></h4></center>
