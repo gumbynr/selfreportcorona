@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="self report corona virus">
+    <meta name="description" content="statistics about the coronavirus">
     <meta name="author" content="Brick and Spire">
     <link rel="icon" href="https://s3-us-west-2.amazonaws.com/parcel-public-images/parcelIcon24x24.png">
 
-    <title>Self Report Corona Virus</title>
+    <title>Coronairus Self Reported Statistics</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://s3-us-west-2.amazonaws.com/buildbiller-static-files/css/bootstrap.css" rel="stylesheet">
@@ -92,39 +92,13 @@ form {
     <br> <br>
     <center><h1 class="mt-5">Self Report Your Coronavirus Case</h1> </center> 
     <br>
-    <center> <h4>Use this form to enter in your information if you believe that you have the Coronavirus disease (COVID-19)</h4></center> 
-<br><br>
+    <center> <h4>Find statistics about the Coronavirus disease (COVID-19)</h4></center> 
+<br><hr>
  
-	<form action="/update_cases" method="post">
-	  <div class="form-group">
-	    <input class="form-control" pattern="[0-9]{5}" name="zipcode" placeholder="Enter your zip code" required>
-	  </div>
-	  <div class="form-group">
-          <label for="likelihood">Select How Likely You Believe You Are to Have the Virus</label>
-	  <select class="form-control" id="likelihood" name="likelihood" required>
-		<option value="" disabled selected>Indicate a percentage</option>
-		<option value="0">0%</option>
-		<option value="20">20%</option>
-		<option value="40">40%</option>
-		<option value="60">60%</option>
-		<option value="80">80%</option>
-		<option value="100">100%</option>
-	  </select>
-	  </div>
-	  <div class="form-group">
-          <label for="country">Select Your Country</label>
-	  <select class="form-control" id="country" name="country" required>
-		<option value="" disabled selected>Select a Country</option>
-		<option value="US">United States</option>
-	  </select>
-	  </div>
+	<br>
+<center><h3> There have been <%= count %> cases self-reported as of today</h3></center>
 
-	  <br>
-	  <input type="submit" class="form-control" value="SUBMIT">
-	</form>
-<br><br>
-<h3> There have been <%= count %> cases self-reported as of today</h3>
-<h4> Submit the form to view number of self-reported cases in your zip code</h4>
+<center><h4>There are <%=zipcount%> reported cases for zip code <%=zipcode%></h4></center>
 
 </div>
 

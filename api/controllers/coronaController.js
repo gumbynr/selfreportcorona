@@ -29,7 +29,13 @@ exports.home = function(req, res) {
 			  res.status(404).json({response:err});
 		  }
 		  else {
-			res.render(path + "home.html",{count:count});
+			db.collection(CASES_COLLECTION).aggregate({$group : {_id:"zipcode", count : {$sum : 1}}}).toArray(function(err,zipDoc) {
+		  		if (err) {
+			  		res.status(404).json({response:err});
+		  		} else {
+					res.render(path + "home.html",{count:count,zipDoc:zipDoc});
+								}
+				});
 		       }
 	  });
 
@@ -38,6 +44,7 @@ exports.home = function(req, res) {
 exports.update_cases = function(req, res) {
 	const percent = Number(req.body.likelihood);
 	req.body.likelihood = percent;
+	req.body.created_at = new Date();
 
 	db.collection(CASES_COLLECTION).insertOne(req.body, function(err, doc) {
 		  if (err) {
@@ -49,12 +56,12 @@ exports.update_cases = function(req, res) {
 			  		res.status(404).json({response:err});
 		  		}
 		  		else {
-					db.collection(CASES_COLLECTION).find({"zipcode": req.body.zipcode}).count(function(err, zipcount) {
+					db.collection(CASES_COLLECTION).find({"zipcode": req.body.zipcode,"likelihood": {$gt:0}}).count(function(err, zipcount) {
 		  				if (err) {
 			  				res.status(404).json({response:err});
 		  				}
 		  				else {
-							res.render(path + "home.html",{count:count,zipcode:req.body.zipcode,zipcount:zipcount});
+							res.render(path + "statistics.html",{count:count,zipcode:req.body.zipcode,zipcount:zipcount});
 		       				}
 	  				});
 		       		}
