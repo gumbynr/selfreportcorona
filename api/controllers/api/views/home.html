@@ -129,7 +129,22 @@ form {
 		<option value="US">United States</option>
 	  </select>
 	  </div>
-
+	  <div class="form-group">
+    	  	<input type="checkbox" class="form-check-input" id="updateCheck" name="updateCheck" onclick="showPercent();">
+    	  	<label class="form-check-label" for="updateCheck">Update a prior entry</label>
+          </div>
+	  <div class="form-group" id="divPercent" style="display:none">
+          <label for="likelihood">What Percent Did You Indicate Perviously</label>
+	  <select class="form-control" name="priorLikelihood" id="priorLikelihood">
+		<option value="" disabled selected>Indicate a percentage</option>
+		<option value="0">0%</option>
+		<option value="20">20%</option>
+		<option value="40">40%</option>
+		<option value="60">60%</option>
+		<option value="80">80%</option>
+		<option value="100">100%</option>
+	  </select>
+	  </div>
 	  <br>
 	  <input type="submit" class="form-control" value="SUBMIT">
 	</form>
@@ -169,5 +184,9 @@ form {
 
   </body>
 
-  
+  <script language="JavaScript">
+function showPercent() {
+    document.getElementById("divPercent").style.display = "inline";
+}
+</script>
   </html>
