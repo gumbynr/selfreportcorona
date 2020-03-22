@@ -41,25 +41,24 @@
 </script>
 
 
-    
-    
-	<style>
-	.div-border {
-	border:1px solid gray;
-	padding:5px;
-	}
-	
-	.button-submit {
-    padding:5px 15px; 
-    background:#2be0b4; 
-    border:0 none;
-    cursor:pointer;
-    -webkit-border-radius: 5px;
-    border-radius: 5px; 
-    }
-    
-    class {
-  font-family: "Montserrat";
+   
+<style>
+.div-border {
+border:1px solid gray;
+padding:5px;
+}
+
+.button-submit {
+padding:5px 15px; 
+background:#2be0b4; 
+border:0 none;
+cursor:pointer;
+-webkit-border-radius: 5px;
+border-radius: 5px; 
+}
+
+class {
+font-family: "Montserrat";
 }
 
 h1 {
@@ -92,37 +91,32 @@ form {
 	/* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
 #map {
-  height: 100%;
+  height: 25%;
 }
-/* Optional: Makes the sample page fill the window. */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+
+#floating-panel {
+position: absolute;
+top: 10px;
+left: 25%;
+z-index: 5;
+background-color: #fff;
+padding: 5px;
+border: 1px solid #999;
+text-align: center;
+font-family: 'Roboto','sans-serif';
+line-height: 30px;
+padding-left: 10px;
 }
 #floating-panel {
-  position: absolute;
-  top: 10px;
-  left: 25%;
-  z-index: 5;
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #999;
-  text-align: center;
-  font-family: 'Roboto','sans-serif';
-  line-height: 30px;
-  padding-left: 10px;
+background-color: #fff;
+border: 1px solid #999;
+left: 25%;
+padding: 5px;
+position: absolute;
+top: 10px;
+z-index: 5;
 }
-#floating-panel {
-  background-color: #fff;
-  border: 1px solid #999;
-  left: 25%;
-  padding: 5px;
-  position: absolute;
-  top: 10px;
-  z-index: 5;
-}
-	</style>
+</style>
 	
      
   </head>
@@ -130,16 +124,14 @@ html, body {
   <body>
 
     <!-- Page Content -->
- <div class="container">
-
-      
+ <div class="container">    
  
  <div class="col-md-6">
     <br> <br>
     <center><h1 class="mt-5">Self Report Your Coronavirus Case</h1> </center> 
     <br>
     <center> <h4>For the majority of us who do not have access to test kits, use this form to enter in your information if you believe that you have the Coronavirus disease (COVID-19) so we can start to get a better idea of the actual infection rate</h4></center> 
-<br><br>
+ <br><br>
  
 	<form action="/update_cases" method="post" id="inputForm">
 	  <div class="form-group">
@@ -160,13 +152,12 @@ html, body {
 	  <div class="form-group">
           <label for="country">Select Your Country</label>
 	  <select class="form-control" id="country" name="country" required>
-		<option value="" disabled selected>Select a Country</option>
-		<option value="US">United States</option>
+		<option value="US" selected="">United States</option>
 	  </select>
 	  </div>
 	  <div class="form-group">
     	  	<input type="checkbox" class="form-check-input" id="updateCheck" name="updateCheck" onclick="showPercent();">
-    	  	<label class="form-check-label" for="updateCheck">Update a prior entry</label>
+    	  	<label class="form-check-label" for="updateCheck">Update a prior entry (if you believe your condition has worsened)</label>
           </div>
 	  <div class="form-group" id="divPercent" style="display:none">
           <label for="likelihood">What Percent Did You Indicate Perviously</label>
@@ -185,44 +176,26 @@ html, body {
 	</form>
 <br>
 <h3> There have been <%= count %> cases self-reported as of today</h3>
-<br>
-<table class="table" id="archiveTable">
-    <thead>
-      <tr>
-      	<th scope="col">Zip Code</th>
-        <th scope="col">Reported Cases</th>
-      </tr>
-    </thead>
-    <tbody>
-			<% for (var i = 0; i < zipDoc.length; i++) { %>
-		<tr>
-  			<td><%= zipDoc[i]._id %></td>
-  			<td><%= zipDoc[i].count %></td>
-  		</tr>    
-			<% } %>
-    </tbody>
-</table><br>
-
+<br><br>
 </div>
  <div class="col-md-6">
-<br><br>
-<center><h1 class="mt-5">CDC Recommendations:</h1> </center> 
-<br>
-<center><h3 class="mt-5">1. Stay Home If You're Sick</h3> </center> 
-<center><h3 class="mt-5">2. Cover Coughs and Sneezes</h3> </center> 
-<center><h3 class="mt-5">3. Wear a facemask if you are sick</h3> </center> 
-<center><h3 class="mt-5">4. Clean and disinfect</h3> </center> <br>
-<center><a href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html" target="_blank">CDC Website: How to Protect Yourself</a></center> <br>
+<br><br><br>
+<div style="height:1000px display: inline-block" >
+<iframe src="http://localhost:5000/google_map" style="width:100%;height:500px;" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+<div class="container">   
+<a style="font-size:16pt;"href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html" target="_blank">CDC Website: How to Protect Yourself</a> <br>
 </div>
 
-</div>
+
 
   </body>
 
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAstNWcTTCt8P0XbovUSv6u7mqKTcB7eZs&libraries=visualization&callback=initMap">
-    </script>
+
   <script language="JavaScript">
+
 function showPercent() {
     document.getElementById("divPercent").style.display = "inline";
 }

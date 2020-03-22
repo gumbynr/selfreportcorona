@@ -29,13 +29,21 @@ exports.home = function(req, res) {
 			  res.status(404).json({response:err});
 		  }
 		  else {
+		  		db.collection(CASES_COLLECTION).find({"likelihood":{"$gt":0}}).toArray(function(err,zipDoc) {
+  					if (err) {
+	  					res.status(404).json({response:err});
+  					} else {
+						res.render(path + "home.html",{count:count,zipDoc:zipDoc});
+					}
+				});
+		  	/*
 			db.collection(CASES_COLLECTION).aggregate([{"$match":{"likelihood":{"$gt":0}}},{$group : {_id:"$zipcode", count : {$sum : 1}}}]).toArray(function(err,zipDoc) {
 		  		if (err) {
 			  		res.status(404).json({response:err});
 		  		} else {
 					res.render(path + "home.html",{count:count,zipDoc:zipDoc});
 								}
-				});
+				});*/
 		       }
 	  });
 
