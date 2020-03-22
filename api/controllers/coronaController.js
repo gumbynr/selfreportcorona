@@ -68,6 +68,35 @@ exports.update_cases = function(req, res) {
 	  		});
 		       }
 	  });
-
 };
+
+exports.google_map = function(req, res) {
+
+	db.collection(CASES_COLLECTION).find({"likelihood":{"$gt":0}}).toArray(function(err,zipDoc) {
+  		if (err) {
+	  		res.status(404).json({response:err});
+  		} else {
+			res.render(path + "google_map.html",{zipDoc:zipDoc});
+		}
+	});
+}
+
+function getLatLngByZipcode(zipcode,callback) 
+ {
+    var NodeGeocoder = require('node-geocoder');
+	var options = {
+  		provider: 'google',
+		httpAdapter: 'https', // Default
+  		apiKey: '', // for Mapquest, OpenCage, Google Premier
+  		formatter: null         // 'gpx', 'string', ...
+	};
+	 
+      var geocoder = NodeGeocoder(options);
+	  geocoder.geocode('29 champs elysée paris', function(err, res) {
+	  	console.log(err);
+  		  console.log(res);
+      });
+
+
+ }
 

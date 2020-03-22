@@ -40,6 +40,7 @@
   gtag('config', 'UA-73458586-3');
 </script>
 
+
     
     
 	<style>
@@ -48,7 +49,7 @@
 	padding:5px;
 	}
 	
-	input[type=submit] {
+	.button-submit {
     padding:5px 15px; 
     background:#2be0b4; 
     border:0 none;
@@ -87,6 +88,40 @@ form {
 	font-size: 12pt;
 	font-family: 'Montserrat', sans-serif;
 	}
+
+	/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+#map {
+  height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#floating-panel {
+  position: absolute;
+  top: 10px;
+  left: 25%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+}
+#floating-panel {
+  background-color: #fff;
+  border: 1px solid #999;
+  left: 25%;
+  padding: 5px;
+  position: absolute;
+  top: 10px;
+  z-index: 5;
+}
 	</style>
 	
      
@@ -106,9 +141,9 @@ form {
     <center> <h4>For the majority of us who do not have access to test kits, use this form to enter in your information if you believe that you have the Coronavirus disease (COVID-19) so we can start to get a better idea of the actual infection rate</h4></center> 
 <br><br>
  
-	<form action="/update_cases" method="post">
+	<form action="/update_cases" method="post" id="inputForm">
 	  <div class="form-group">
-	    <input class="form-control" pattern="[0-9]{5}" name="zipcode" placeholder="Enter your zip code" required>
+	    <input class="form-control" pattern="[0-9]{5}" name="zipcode" id="zipcode" placeholder="Enter your zip code" required>
 	  </div>
 	  <div class="form-group">
           <label for="likelihood">Select How Likely You Believe You Are to Have the Virus</label>
@@ -146,27 +181,27 @@ form {
 	  </select>
 	  </div>
 	  <br>
-	  <input type="submit" class="form-control" value="SUBMIT">
+	  <button id="submitButton" class="form-control button-submit" type="button" onclick="updateLatLong();">SUBMIT</button>
 	</form>
 <br>
 <h3> There have been <%= count %> cases self-reported as of today</h3>
 <br>
 <table class="table" id="archiveTable">
-					    <thead>
-					      <tr>
-					      	<th scope="col">Zip Code</th>
-					        <th scope="col">Reported Cases</th>
-					      </tr>
-					    </thead>
-					    <tbody>
-				  			<% for (var i = 0; i < zipDoc.length; i++) { %>
-				    		<tr>
-				      			<td><%= zipDoc[i]._id %></td>
-				      			<td><%= zipDoc[i].count %></td>
-				      		</tr>    
-				  			<% } %>
-					    </tbody>
-				</table><br>
+    <thead>
+      <tr>
+      	<th scope="col">Zip Code</th>
+        <th scope="col">Reported Cases</th>
+      </tr>
+    </thead>
+    <tbody>
+			<% for (var i = 0; i < zipDoc.length; i++) { %>
+		<tr>
+  			<td><%= zipDoc[i]._id %></td>
+  			<td><%= zipDoc[i].count %></td>
+  		</tr>    
+			<% } %>
+    </tbody>
+</table><br>
 
 </div>
  <div class="col-md-6">
@@ -184,9 +219,44 @@ form {
 
   </body>
 
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAstNWcTTCt8P0XbovUSv6u7mqKTcB7eZs&libraries=visualization&callback=initMap">
+    </script>
   <script language="JavaScript">
 function showPercent() {
     document.getElementById("divPercent").style.display = "inline";
 }
+
+function updateLatLong() 
+{
+      var lat = '';
+      var lng = '';
+      var address = document.getElementById("zipcode").value;
+      if (document.getElementById("inputForm").checkValidity() == false) {
+      	alert("Please enter all fields in the correct format");
+      } else {
+	      var geocoder= new google.maps.Geocoder();
+	      geocoder.geocode( { 'address': address}, function(results, status) {
+	        if (status == google.maps.GeocoderStatus.OK) {
+	           lat = results[0].geometry.location.lat();
+	           lng = results[0].geometry.location.lng();
+	           var latInput = document.createElement("input");
+	    	   latInput.setAttribute("type", "hidden");
+	    	   latInput.setAttribute("name", "lat");
+	    	   latInput.setAttribute("value", lat);
+	    	   document.getElementById("inputForm").appendChild(latInput);
+	    	   var longInput = document.createElement("input");
+	    	   longInput.setAttribute("type", "hidden");
+	    	   longInput.setAttribute("name", "long");
+	    	   longInput.setAttribute("value", lng);
+	    	   document.getElementById("inputForm").appendChild(longInput);
+	    	   document.getElementById("inputForm").submit();
+	        } else {
+	          alert("Geocode was not successful for the following reason: " + status);
+	        }
+	      });
+  	   } 
+}
+
 </script>
   </html>
