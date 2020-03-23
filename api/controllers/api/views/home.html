@@ -32,6 +32,7 @@
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-73458586-3"></script>
+
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -171,8 +172,8 @@ z-index: 5;
 		<option value="100">100%</option>
 	  </select>
 	  </div>
+	  <div class="g-recaptcha" data-sitekey="6Le-NeMUAAAAACPLpxrA8UAYU5255R6En94r1aLn"></div>
 	  <br>
-	  <div class="g-recaptcha" data-sitekey="6Le-NeMUAAAAACPLpxrA8UAYU5255R6En94r1aLn"></div><br>
 	  <button id="submitButton" class="form-control button-submit" type="button" onclick="updateLatLong();">SUBMIT</button>
 	</form>
 <br>
@@ -195,7 +196,9 @@ z-index: 5;
 
   </body>
 
-
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAstNWcTTCt8P0XbovUSv6u7mqKTcB7eZs&callback=initMap">
+    </script>
   <script language="JavaScript">
 
 function showPercent() {
